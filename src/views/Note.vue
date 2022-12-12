@@ -60,7 +60,7 @@ export default {
     // 移动事件
     move: function (index) {
       if (this.seleteCell + index == -1 || this.seleteCell + index == this.cells.length) {
-        console.log('错误')
+        alert('错误')
         return
       }
       let cellother = this.cells[this.seleteCell]
@@ -71,7 +71,7 @@ export default {
     // 删除事件
     remove: function () {
       if (this.cells.length == 1) {
-        console.log("不能删除")
+        alert("不能删除")
         return
       }
 
@@ -109,16 +109,17 @@ export default {
         text: '这是一篇新笔记',
         time: Date.now()
       }]
+      localStorage.setItem('celldata-' + this.id, JSON.stringify(noteTemplate))
       this.notes.push({
         content: this.title + this.id++,
         id: this.id
       })
-      localStorage.setItem('celldata-' + this.id, JSON.stringify(noteTemplate))
+      
     },
     // 删除笔记
     idmove() {
       if (this.notes.length == 1) {
-        console.log("不能删除")
+        alert("不能删除")
         return
       }
       localStorage.removeItem('celldata-' + this.notes[this.seleteTitle].id)
@@ -143,6 +144,7 @@ export default {
       this.seleteTitle = index
       this.i = 0
       this.cells = JSON.parse(localStorage.getItem('celldata-' + this.notes[this.seleteTitle].id))
+      
     },
     // 双击笔记选中事件
     titledb: function () {
@@ -166,14 +168,16 @@ export default {
   },
   // 读取浏览器存储信息 if 语句判断 有信息读取
   mounted() {
-    if (localStorage.getItem('celldata-' + 1)) {
-      this.cells = JSON.parse(localStorage.getItem('celldata-' + 1))
+    if (localStorage.getItem('celldata-' + this.notes[this.seleteTitle].id)) {
+      this.cells = JSON.parse(localStorage.getItem('celldata-' + this.notes[this.seleteTitle].id))
     }
+    
     if (localStorage.getItem('note-list')) {
       this.notes = JSON.parse(localStorage.getItem('note-list'))
     }
+    
     this.id = Number(localStorage.getItem('id-title')) || 1
-    this.store.nickname = localStorage.getItem('nickname')
+    this.store.nickname = localStorage.getItem('nickname')||'匿名'
   },
 }
 </script>
