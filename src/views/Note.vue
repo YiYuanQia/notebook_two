@@ -109,12 +109,12 @@ export default {
         text: '这是一篇新笔记',
         time: Date.now()
       }]
-      localStorage.setItem('celldata-' + this.id, JSON.stringify(noteTemplate))
+
       this.notes.push({
         content: this.title + this.id++,
         id: this.id
       })
-      
+      localStorage.setItem('celldata-' + this.id, JSON.stringify(noteTemplate))
     },
     // 删除笔记
     idmove() {
@@ -144,7 +144,7 @@ export default {
       this.seleteTitle = index
       this.i = 0
       this.cells = JSON.parse(localStorage.getItem('celldata-' + this.notes[this.seleteTitle].id))
-      
+
     },
     // 双击笔记选中事件
     titledb: function () {
@@ -168,16 +168,22 @@ export default {
   },
   // 读取浏览器存储信息 if 语句判断 有信息读取
   mounted() {
-    if (localStorage.getItem('celldata-' + this.notes[this.seleteTitle].id)) {
-      this.cells = JSON.parse(localStorage.getItem('celldata-' + this.notes[this.seleteTitle].id))
+    let noteTemplate = [{
+      text: '这是一篇新笔记',
+      time: Date.now()
+    }]
+
+    localStorage.setItem('celldata-' + 1, JSON.stringify(noteTemplate))
+    if (localStorage.getItem('celldata-' + 1)) {
+      this.cells = JSON.parse(localStorage.getItem('celldata-' + 1))
     }
-    
+
     if (localStorage.getItem('note-list')) {
       this.notes = JSON.parse(localStorage.getItem('note-list'))
     }
-    
+
     this.id = Number(localStorage.getItem('id-title')) || 1
-    this.store.nickname = localStorage.getItem('nickname')||'匿名'
+    this.store.nickname = localStorage.getItem('nickname') || '匿名'
   },
 }
 </script>
