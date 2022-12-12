@@ -1,12 +1,12 @@
 import { createRouter, createWebHashHistory } from "vue-router"
 const routes = [
-    { path: '/note', component: import('../views/Note.vue') },
-    { path: '/login', component: import('../views/Login.vue') },
-    { path: '/sign', component: import('../views/Sign.vue') },
-    { path: '/change', component: import('../views/Change.vue') },
+    { path: '/note', component: () => import('../views/Note.vue') },
+    { path: '/login', component: () => import('../views/Login.vue') },
+    { path: '/sign', component: () => import('../views/Sign.vue') },
+    { path: '/change', component: () => import('../views/Change.vue') },
     {
-        path:'/',
-        redirect:'/login'
+        path: '/',
+        redirect: '/login'
     }
 ]
 
